@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: veysel
- * Date: 23.05.2019
- * Time: 12:39
- */
 
 class Router
 {
@@ -15,12 +9,9 @@ class Router
     public static    $dynUrl=[];
     public static    $urlstatus=0;
 
-
    public function __construct($url){
        self::$url=trim($url,"/");
-
     }
-
 
     public static function view($index,$value=false)
     {
