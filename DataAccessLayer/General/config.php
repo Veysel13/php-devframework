@@ -1,6 +1,6 @@
 <?php
 
-
+namespace DataAccessLayer\General;
 class config {
 
     public function settings(){

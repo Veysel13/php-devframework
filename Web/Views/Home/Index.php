@@ -2,7 +2,7 @@
 
 <h3>İndex Sayfası</h3>
 
-<a href="add">Ekleme yerıne git</a>
+<a href="<?=Url("add")?>">User Ekle</a>
 
     <br>    <br><br>
 
@@ -12,7 +12,7 @@ foreach((array)$deger as $item){?>
     <div>
         <?=$item["Name"] ?>
         <?=$item["Id"] ?>
-        <a href="user/delete/<?=$item["Id"]?>" >Sil</a>
+        <a href="<?=Url("user/delete/".$item['Id'])?>" >Sil</a>
     </div>
 
 <?php } ?>

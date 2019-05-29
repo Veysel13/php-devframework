@@ -1,5 +1,7 @@
 <?php
 
+
+include_once _root."/system/autoload.php";
 class Router
 {
     private static   $sayi=0;
@@ -41,14 +43,18 @@ class Router
 
     //main router
     protected static  function mainRouter($url,$callback){
+
+
         self::$sayi++;
         $kontrol = gettype($callback);
         if ($kontrol == "object") {
             call_user_func($callback);
         } else {
             $controlname = explode("@", $callback)[0];
-            $methodname = explode("@", $callback)[1];
+             $methodname = explode("@", $callback)[1];
+
             if(class_exists($controlname)){
+
                 return call_user_func_array(array(new $controlname(),$methodname),explode("/",self::$url));
             }
         }
@@ -83,6 +89,7 @@ class Router
 
 //specific route
 
+
 public static function specificroute($url){
     //route calıstırılan
     $url=trim($url,'/');
@@ -109,8 +116,11 @@ public static function specificroute($url){
 
     //get start
     public static function get($url,$callback){
+
+
         if ($_SERVER["REQUEST_METHOD"]==="GET"){
 
+            $url=trim($url,'/');
             Router::specificroute($url);
               if(self::$urlstatus===1){
                   self::$dynUrl = explode("/", self::$url);
@@ -143,7 +153,7 @@ public static function specificroute($url){
     public static function post($url,$callback){
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            //$url=ltrim($url,"/");
+            $url=trim($url,'/');
 
             Router::specificroute($url);
 
@@ -173,7 +183,7 @@ public static function specificroute($url){
 //put start
     public static function put($url,$callback){
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-            //$url=ltrim($url,"/");
+            $url=ltrim($url,"/");
 
             Router::specificroute($url);
             if(self::$urlstatus===1){
@@ -198,7 +208,7 @@ public static function specificroute($url){
 //delete start
     public static function delete($url,$callback){
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-           // $url=ltrim($url,"/");
+            $url=ltrim($url,"/");
 
             Router::specificroute($url);
             if(self::$urlstatus===1){
@@ -224,7 +234,7 @@ public static function specificroute($url){
     public static function any($url,$callback)
     {
 
-        // $url=ltrim($url,"/");
+         $url=trim($url,"/");
         Router::specificroute($url);
         if(self::$urlstatus===1){
             self::$dynUrl = explode("/", self::$url);

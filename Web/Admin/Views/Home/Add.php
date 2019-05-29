@@ -1,13 +1,19 @@
-<?php include_once(_root."/Web/Views/Shared/_header.php")?>
+
     <!DOCTYPE html>
     <html>
     <body>
-    <h2>Home index </h2>
+    <h2>Admin Home index </h2>
 
-    <?= my_errors(isset($error_message)?$error_message:null);?>
+    <?php
+    if (isset($eror_message)){?>
+        <div>
+            <?= $eror_message?>
+        </div>
+    <?php  }?>
 
 
-    <form action="<?=Url("/add")?>" method="post">
+
+    <form action="<?=Url("admin/add")?>" method="post">
         First name:<br>
         <input type="text" name="Name" value="Mickey">
         <br>
@@ -26,5 +32,3 @@
     </body>
     </html>
 
-
-<?php include_once(_root."/Web/Views/Shared/_footer.php")?>

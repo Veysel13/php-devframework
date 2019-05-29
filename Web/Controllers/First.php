@@ -1,13 +1,14 @@
 <?php
-require_once(_root."/BusinessLayer/Manager/DenemeManager.php");
+
+use BusinessLayer\Manager\DenemeManager;
+
 class First extends MainController
 {
 
     public function Index()
     {
         $id=1;
-        return RedirectToAction("Direct","AdminHome",$id);
-
+        $this->RedirectToAction("/");
     }
 
      public function Add()
@@ -15,15 +16,13 @@ class First extends MainController
          $db=new DenemeManager();
          $value=$db->ListQuery();
 
-        return View("Ekle","First",compact("value"));
-
+        $this->View("Ekle","First",compact("value"));
     }
-
 
     public function Guncelle()
     {
 
-        return View("Guncelle","First",compact("value"));
+        $this->View("Guncelle","First",compact("value"));
 
     }
 }

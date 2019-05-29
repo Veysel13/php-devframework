@@ -1,7 +1,10 @@
 <?php 
 
-include "config.php";
-class craud {
+
+namespace DataAccessLayer\General;
+
+use PDO;
+class Repository {
 
     //singletion için
    // private static $instance;
@@ -12,7 +15,7 @@ class craud {
     function __construct(){
 
         $this->conf=(new config())->settings();
-        $this->connect=new \PDO("mysql:host=".$this->conf["host"].";dbname=".$this->conf["dbname"].";charset=utf8",$this->conf["user"],$this->conf["password"]);
+        $this->connect=new PDO("mysql:host=".$this->conf["host"].";dbname=".$this->conf["dbname"].";charset=utf8",$this->conf["user"],$this->conf["password"]);
 
     }
 

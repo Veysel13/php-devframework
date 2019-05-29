@@ -1,8 +1,7 @@
 <?php
 
-require_once(_root."/BusinessLayer/Manager/DenemeManager.php");
+use BusinessLayer\Manager\DenemeManager;
 
-date_default_timezone_set('Europe/Istanbul');
 class Home extends MainController
 {
 
@@ -11,19 +10,14 @@ class Home extends MainController
      */
     private $dbDeneme;
 
-   /*
-    * MainController
-    */
-    //private $main;
-
     function __construct() {
         $this->dbDeneme=new DenemeManager();
-        //$this->main = new MainController();
     }
 
     public function Index()
     {
-        $deger=$this->dbDeneme->ListQuery();
+        $deger=$this->dbDeneme->ListQuery()["data"];
+
         $this->View("Index","Home",compact("deger"));
     }
 
@@ -32,33 +26,24 @@ class Home extends MainController
         $this->View("Add","Home");
     }
 
-    public function Post_Add(){
-
-        $this->dbDeneme->DenemeAdd($_POST);
-
-        $this->RedirectToAction("/");
-    }
-
-    public function Deneme()
+    public function Post_Add()
     {
+       $result= $this->dbDeneme->DenemeAdd($_POST);
 
-        $this->View("deneme","Home");
-
-    }
-
-    public function Update($id)
-    {
-
-
-        $this->View("Index","Home",compact("id"));
+       if ($result["success"]==1){
+           $this->RedirectToAction("/");
+       }else{
+           $error_message=$result["message"];
+           $this->View("Add","Home",compact("error_message"));
+       }
 
     }
+
+
 
     public function Delete($id)
     {
-
         $this->dbDeneme->UserDelete($id);
         $this->RedirectToAction("/");
-
     }
 }
